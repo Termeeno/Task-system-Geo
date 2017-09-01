@@ -105,7 +105,7 @@ while ($row = mysql_fetch_array($result)){
 						break;
 
 					case (($days<0 OR $checkstatus=='Отменена')AND $checkstatus!='Выполнена' AND $checkstatus!='Выполнена частично' AND $checkstatus!='Приостановлена'):
-						$color='#FB8B8B';
+						$color='#FBA2A2';
 						break;
 
 					case ($checkstatus=='На рассмотрении начальника отдела'):
@@ -125,7 +125,7 @@ while ($row = mysql_fetch_array($result)){
 						break;
 
 					case($checkstatus=='Выполнена частично'):
-						$color='#E18BFA';
+						$color='#EFC2FC';
 						break;
 
 					case($checkstatus=='Приостановлена'):

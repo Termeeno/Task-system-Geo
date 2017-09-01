@@ -92,16 +92,39 @@ while ($row = mysql_fetch_array($result)){
 				$checkstatus=$row["status"];																//вычисляем время до дедлайна заявки, если остается <3, то подсвечиваем оранж.
 				$check= strtotime($deaddate)-time();
 				$days = floor($check/86400);
-				if ($days<3 AND $days>=0 AND ($checkstatus!='Выполнена' AND $checkstatus!='Отменена')) {				//Если меньше 3 дней и заявка не отменена и не выполнена- светим желтым
-					$color='#F6AE47';
-				} else if (($days<0 AND $checkstatus!='Выполнена') OR $checkstatus=='Отменена'){						//Если меньше 0 дней и заявка не выполнена ИЛИ заявка отменена- светим красным
-					$color='#FB8B8B';
-				} else if ($checkstatus!='Выполнена' AND $checkstatus!='Направлена исполнителю') {$color='#D0DFEF';		// Если заявка не выполнена и не направлена исполнителю- светим голубым
-			} else  if ($checkstatus=='Направлена исполнителю') {
-				$color='#ADB1FB';																						//если заявка направлена исполнителю- светим темно-голубым
-			} else
-			{$color='#7BE18E';																							//иначе означает, что заявка выполнена и светим зеленым.
-		}
+				switch ($checkstatus) {
+					case ($days<3 AND $days>=0 AND $checkstatus!='Выполнена' AND $checkstatus!='Выполнена частично' AND $checkstatus!='Приостановлена'):
+						$color='#F6AE47';
+						break;
+
+					case (($days<0 OR $checkstatus=='Отменена')AND $checkstatus!='Выполнена' AND $checkstatus!='Выполнена частично' AND $checkstatus!='Приостановлена'):
+						$color='#FBA2A2';
+						break;
+
+					case ($checkstatus=='На рассмотрении начальника отдела'):
+						$color='#D0DFEF';
+						break;
+
+					case($checkstatus=='Направлена исполнителю'):
+						$color='#ADB1FB';
+						break;
+
+					case($checkstatus=='Принята в работу'):
+						$color='#FAD5BF';
+						break;
+
+					case ($checkstatus=='Выполнена'):
+						$color='#7BE18E';
+						break;
+
+					case($checkstatus=='Выполнена частично'):
+						$color='#EFC2FC';
+						break;
+
+					case($checkstatus=='Приостановлена'):
+						$color='#8AF4F3';
+						break;
+				}	
 		if ($worker1color!='#7BE18E') {								// сделано для того, чтобы все ячейки были общего цвета $color, кроме ячеек работников, выполнивших заявку
 				$worker1color=$color;
 			}
