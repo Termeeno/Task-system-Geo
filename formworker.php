@@ -37,11 +37,10 @@
       </select>
       <br/>
     <input type="text" name="phone" size="30" maxlength="300" style="width: 160px;" placeholder="Телефон Заказчика">
-    <input id="search" name="control" type="submit" style="width: 210px; background-color: #F6AE47;" value="Отобразить заявки на контроле">  
+      <input type="text" name="object" size="30" maxlength="300" style="width: 205px;" placeholder="Введите название объекта">
       <br/>
       <input type="date" name="datein" size="30" maxlength="300" style="width: 170px;"> - 
       <input type="date" name="dateout" size="30" maxlength="300" style="width: 170px;">
-      <input type="text" name="object" size="30" maxlength="300" style="width: 260px;" placeholder="Введите название объекта">
       <br/>
-      <input autofocus id="search" name="search" type="submit" style="width: 70px;" value="Найти"><input type="reset" style="width: 150px;" value="Очистить форму">
+      <input id="search" name="search" autofocus type="submit" style="width: 70px;" value="Найти"><input type="reset" style="width: 150px;" value="Очистить форму"><input id="search" name="control" type="submit" style="width: 210px; background-color: #F6AE47;" value="Отобразить заявки на контроле">  
 </form>
