@@ -148,7 +148,7 @@ while ($row = mysql_fetch_array($result)){
 </input><br/><br/>';
 $_SESSION['sql'] = $querynum;
 //код для постраничного вывода
-$quantity=20;								//кол-во записей на страницу
+$quantity=100;								//кол-во записей на страницу
 $pagesquantity=ceil($numm/$quantity);		//количество страниц
 for ($i=1; $i<=$pagesquantity; $i++) {
 	echo '<a href="alltask.php?page='.$i.'"style="color: #BA720C; text-decoration:none; text-align: left;"/>&nbsp;'.$i.'&nbsp;</a>';
