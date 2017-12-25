@@ -8,7 +8,7 @@ require 'scripts/connect.php';
 			if ($page==0) {
 				$page=1;
 			}																
-			$limit=20;														//устанавливаем лимит заявок на страницу
+			$limit=100;														//устанавливаем лимит заявок на страницу
 			$offset=$limit*($page-1);										//устанавливаем параметр оффсет (указывает, с какой строки из БД возвращать данные)
 if (isset($_POST['search'])) {
 	$sql.= ' AND chief LIKE "%'.$_SESSION['surname'].'%"';
