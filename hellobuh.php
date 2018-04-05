@@ -4,6 +4,7 @@
 			$quantrowsnotpay=mysql_query("SELECT * FROM tasktable WHERE pay_status='Не оплачен'");
 			$quantrowspay=mysql_query("SELECT * FROM tasktable WHERE pay_status='Оплачен'");
 			$quantrowsprepay=mysql_query("SELECT * FROM tasktable WHERE pay_status='Внесен аванс'");
+			$result=mysql_query("SELECT * FROM resources");
 			$nummall = mysql_num_rows($quantrowsall);		
 			$nummnotpay = mysql_num_rows($quantrowsnotpay);	
 			$nummpay = mysql_num_rows($quantrowspay);	
@@ -14,7 +15,8 @@
 			echo 'Количество оплаченных заявок: <strong><FONT COLOR=#D43D42>'.$nummpay.'</FONT></strong></br>';
 			echo 'Количество заявок с авансом: <strong><FONT COLOR=#D43D42>'.$nummprepay.'</FONT></strong></br>';
 			echo '<a href="alltask.php?do=logout">Выход</a>';
-			echo '</br></br><strong><FONT COLOR=#F42B32> Внимание!</FONT></strong></br>';
-			echo 'С 9 января 2018 года все заявки 2017 года, имеющие статус "Выполнена" (отмеченные зеленым в поиске), будут перемещены в архив. ';
-
+			while ($row = mysql_fetch_array($result)){
+        	$text=$row["helloblockmem"]; 
+       		 }
+        	echo $text;
 		?>
