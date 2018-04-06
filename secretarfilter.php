@@ -84,6 +84,16 @@ if (isset($_POST['control'])) {																		//по нажатию кноп�
 	$numm = mysql_num_rows($quantrows);	
 	echo 'Найдено заявок: '.$numm;
 } else
+if (isset($_POST['searchdeadline'])) {//поиск всех невыполненных заявок
+	if ($_POST['select_chief']!='Выберите начальника отдела'){                              //выбор нач отдела, если не выбран- ищем все невыполненные
+		$query = "SELECT * FROM tasktable WHERE chief ='".$_POST['select_chief']."' AND status!='Выполнена' ORDER BY number DESC";
+	} else
+	$query = "SELECT * FROM tasktable WHERE status!='Выполнена' ORDER BY number DESC";
+	$querynum=$query;
+	$quantrows=mysql_query($query);
+	$numm = mysql_num_rows($quantrows);	
+	echo 'Найдено заявок: '.$numm;
+} else
 { 
 $query = "SELECT * FROM tasktable ORDER BY number DESC LIMIT ".$offset.", ".$limit;	
 $querynum = "SELECT * FROM tasktable ORDER BY number DESC";	

@@ -58,5 +58,5 @@
       <input type="date" name="datein" size="30" maxlength="300" style="width: 170px;"> - 
       <input type="date" name="dateout" size="30" maxlength="300" style="width: 170px;">
       <br/>
-      <input id="search" name="search" autofocus type="submit" style="width: 70px;" value="Найти"><input type="reset" style="width: 150px;" value="Очистить форму"><input id="search" name="control" type="submit" style="width: 210px; background-color: #F6AE47;" value="Отобразить заявки на контроле">  
+      <input id="search" name="search" autofocus type="submit" style="width: 70px;" value="Найти"><input type="reset" style="width: 150px;" value="Очистить форму"><input id="search" name="control" type="submit" style="width: 210px; background-color: #F6AE47;" value="Отобразить заявки на контроле"><input id="searchdeadline" type="submit" name="searchdeadline" style="width: 220px;background-color: #67FA91;" value="Найти невыполненные заявки">
 </form>
