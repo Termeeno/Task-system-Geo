@@ -61,6 +61,7 @@
 <input type="text" name="checkout_time" size="30" maxlength="300" style="width: 500px;" placeholder="Введите планируемое время выезда" value="'.$edCheckout_time.'"><br/>
       <input id="submit" type="submit" name="update" style="width: 150px; font-size:14px; " value="Сохранить заявку">
        <input id="submit" type="submit" name="take" style="width: 150px; font-size:14px; " value="Взять в работу">
+       <input id="submit" type="submit" name="return" style="width: 250px; font-size:14px; " value="Вернуть начальнику отдела">
 </form>';
 if (isset($_POST['update'])) {					//по нажатию кнопки Сохранить апдейтим базу
 	$object = $_POST['object'];
@@ -115,5 +116,10 @@ $checkout_time= $_POST['checkout_time'];
   $checkout_time= $_POST['checkout_time'];
   $updateTask = mysql_query("UPDATE tasktable SET object='$object', comments='$comments', status='$status', worker='$workerchief', 2worker='$worker2', 3worker='$worker3', checkout_time='$checkout_time', log='$log' WHERE number ='$num'");
   echo '<br/><font color="#35A13F">Заявка принята в работу:</font>';
+}
+if (isset($_POST['return'])) { //нажатие кнопки возврата нач. отдела
+  $log= $edlog.' Заявка возвращена начальнику отдела ('.$_SESSION['surname'].', '.$dateedit.'): ';
+   $updateTask = mysql_query("UPDATE tasktable SET worker='Не назначен', 2worker='Не назначен', 3worker='Не назначен', status='На рассмотрении начальника отдела', checkout_time='Не назначено', worker_1_check='#D0DFEF', worker_2_check='#D0DFEF', worker_3_check='#D0DFEF', log='$log' WHERE number ='$num'");
+  echo '<br/><font color="#35A13F">Заявка возвращена начальнику отдела:</font>';
 }
 ?>
