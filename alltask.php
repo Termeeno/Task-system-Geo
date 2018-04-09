@@ -87,19 +87,19 @@ require "auth.php";
 <div class="listtaskblock">
 <table border="1">
    <tr>
-    <th><font size="2" color=#02674C>Номер</font></th>
-    <th><font size="2" color=#02674C>Дата и время</font></th>
-    <th><font size="2" color=#02674C>ФИО Заказчика&nbsp;&nbsp;</font></th>
-    <th><font size="2" color=#02674C>&nbsp;&nbsp;Объект&nbsp;&nbsp;</font></th>
-    <th><font size="2" color=#02674C>Телефон</font></th>
-    <th><font size="2" color=#02674C>Вид работ</font></th>
-    <th><font size="2" color=#02674C>Контакты</font></th>
-    <th><font size="2" color=#02674C>Оплата</font></th>
-    <th><font size="2" color=#02674C>&nbsp;&nbsp;&nbsp;Статус&nbsp;&nbsp;&nbsp;</font></th>
-    <th><font size="2" color=#02674C>Начальник отдела</font></th>
-    <th><font size="2" color=#02674C>Исполнитель</font></th>
-    <th><font size="2" color=#02674C>Исп-ль №2</font></th>
-    <th><font size="2" color=#02674C>Исп-ль №3</font></th>
+    <th><font size="2"><a href="alltask.php?blocksession=true&sort=number&<?php if ($_GET['order']=="DESC"){ echo 'order=ASC';} else echo 'order=DESC' ?>&page=<?php echo $_GET['page']; ?>" style="color: #02674C; text-decoration: none;">Номер</a></font></th>
+    <th><font size="2"><a href="alltask.php?blocksession=true&sort=date&<?php if ($_GET['order']=="DESC"){ echo 'order=ASC';} else echo 'order=DESC' ?>&page=<?php echo $_GET['page']; ?>" style="color: #02674C; text-decoration: none;">Дата и время</a></font></th>
+    <th><font size="2"><a href="alltask.php?blocksession=true&sort=client&<?php if ($_GET['order']=="DESC"){ echo 'order=ASC';} else echo 'order=DESC' ?>&page=<?php echo $_GET['page']; ?>" style="color: #02674C; text-decoration: none;">ФИО Заказчика&nbsp;&nbsp;</a></font></th>
+    <th><font size="2"><a href="alltask.php?blocksession=true&sort=object&<?php if ($_GET['order']=="DESC"){ echo 'order=ASC';} else echo 'order=DESC' ?>&page=<?php echo $_GET['page']; ?>" style="color: #02674C; text-decoration: none;">Объект</a></font></th>
+    <th><font size="2"><a href="alltask.php?blocksession=true&sort=phone&<?php if ($_GET['order']=="DESC"){ echo 'order=ASC';} else echo 'order=DESC' ?>&page=<?php echo $_GET['page']; ?>" style="color: #02674C; text-decoration: none;">Телефон</a></font></th>
+    <th><font size="2"><a href="alltask.php?blocksession=true&sort=type&<?php if ($_GET['order']=="DESC"){ echo 'order=ASC';} else echo 'order=DESC' ?>&page=<?php echo $_GET['page']; ?>" style="color: #02674C; text-decoration: none;">Вид работ</a></font></th>
+    <th><font size="2"><a href="alltask.php?blocksession=true&sort=name&<?php if ($_GET['order']=="DESC"){ echo 'order=ASC';} else echo 'order=DESC' ?>&page=<?php echo $_GET['page']; ?>" style="color: #02674C; text-decoration: none;">Контакты</a></font></th>
+    <th><font size="2"><a href="alltask.php?blocksession=true&sort=pay_status&<?php if ($_GET['order']=="DESC"){ echo 'order=ASC';} else echo 'order=DESC' ?>&page=<?php echo $_GET['page']; ?>" style="color: #02674C; text-decoration: none;">Оплата</a></font></th>
+    <th><font size="2"><a href="alltask.php?blocksession=true&sort=status&<?php if ($_GET['order']=="DESC"){ echo 'order=ASC';} else echo 'order=DESC' ?>&page=<?php echo $_GET['page']; ?>" style="color: #02674C; text-decoration: none;">Статус</a></font></th>
+    <th><font size="2"><a href="alltask.php?blocksession=true&sort=chief&<?php if ($_GET['order']=="DESC"){ echo 'order=ASC';} else echo 'order=DESC' ?>&page=<?php echo $_GET['page']; ?>" style="color: #02674C; text-decoration: none;">Начальник отдела</a></font></th>
+    <th><font size="2"><a href="alltask.php?blocksession=true&sort=worker&<?php if ($_GET['order']=="DESC"){ echo 'order=ASC';} else echo 'order=DESC' ?>&page=<?php echo $_GET['page']; ?>" style="color: #02674C; text-decoration: none;">Исполнитель</a></font></th>
+    <th><font size="2"><a href="alltask.php?blocksession=true&sort=2worker&<?php if ($_GET['order']=="DESC"){ echo 'order=ASC';} else echo 'order=DESC' ?>&page=<?php echo $_GET['page']; ?>" style="color: #02674C; text-decoration: none;">Исп-ль №2</a></font></th>
+    <th><font size="2"><a href="alltask.php?blocksession=true&sort=3worker&<?php if ($_GET['order']=="DESC"){ echo 'order=ASC';} else echo 'order=DESC' ?>&page=<?php echo $_GET['page']; ?>" style="color: #02674C; text-decoration: none;">Исп-ль №3</font></th>
     <th><font size="2" color=#02674C>Действия</font></th>
    </tr>
 <?php

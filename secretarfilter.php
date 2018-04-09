@@ -4,9 +4,18 @@ require 'scripts/connect.php';
 			$query="SELECT * FROM tasktable";
 			$quantrows=mysql_query($query);
 			$numm = mysql_num_rows($quantrows);								//общее кол-во записей, без применения фильтра заявок
-			$page=$_GET["page"];											//получаем номер страницы
+			$page=$_GET["page"];											//страница
+			$sort=$_GET['sort'];											//условие сортировки
+			$order=$_GET['order'];											//направление сортиовки
+												//получаем номер страницы
 			if ($page==0) {
 				$page=1;
+			}
+			if (!isset($_GET['sort'])) {
+				$sort="number";
+			}
+			if (!isset($_GET['order'])) {
+				$order="DESC";
 			}																
 			$limit=100;														//устанавливаем лимит заявок на страницу
 			$offset=$limit*($page-1);										//устанавливаем параметр оффсет (указывает, с какой строки из БД возвращать данные)
@@ -68,36 +77,59 @@ if (!empty($_POST['client'])) {
 
 	}
 	
+unset($_SESSION['query']);																//очистка сессии
 $query = "SELECT * FROM tasktable WHERE 1 ".$sql. " ORDER BY number DESC";
+$_SESSION['query']="SELECT * FROM tasktable WHERE 1 ".$sql;								//добавляем усеченный вариант запроса в сессию. (и так в каждой итерации фильтра)
 $querynum=$query;
 $quantrows=mysql_query($query);
 $numm = mysql_num_rows($quantrows);																		//количество заявок при включенном фильтре
 echo 'Найдено заявок: '.$numm;
 } else 
-if (isset($_POST['control'])) {																		//по нажатию кнопки Отобразить заявки на контроле ищем заявки с дедлайноm, равным (сегд число +3 дня)
+if (isset($_POST['control'])) {	
+	unset($_SESSION['query']);																	//по нажатию кнопки Отобразить заявки на контроле ищем заявки с дедлайноm, равным (сегд число +3 дня)
 	$timestamp = strtotime("+3 day");
 	$findindeadline='"'.date ('Y-m-d' , $timestamp).'"';
 	$findoutdeadline='"'.date ('Y-m-d').'"';
-	$query = "SELECT * FROM tasktable WHERE deadline <=".$findindeadline." AND deadline >=".$findoutdeadline." AND status!='Выполнена' ORDER BY number DESC";
+	$query = "SELECT * FROM tasktable WHERE deadline <=".$findindeadline." AND deadline >=".$findoutdeadline." AND status!='Выполнена' ORDER BY ".$sort." ".$order;
+	$_SESSION['query']="SELECT * FROM tasktable WHERE deadline <=".$findindeadline." AND deadline >=".$findoutdeadline." AND status!='Выполнена'";
 	$querynum=$query;
 	$quantrows=mysql_query($query);
 	$numm = mysql_num_rows($quantrows);	
-	echo 'Найдено заявок: '.$numm;
+	echo 'Найдено заявок: '.$_SESSION['query'];
 } else
 if (isset($_POST['searchdeadline'])) {//поиск всех невыполненных заявок
+	unset($_SESSION['query']);
 	if ($_POST['select_chief']!='Выберите начальника отдела'){                              //выбор нач отдела, если не выбран- ищем все невыполненные
-		$query = "SELECT * FROM tasktable WHERE chief ='".$_POST['select_chief']."' AND status!='Выполнена' ORDER BY number DESC";
-	} else
-	$query = "SELECT * FROM tasktable WHERE status!='Выполнена' ORDER BY number DESC";
+		$query = "SELECT * FROM tasktable WHERE chief ='".$_POST['select_chief']."' AND status!='Выполнена' AND status!='Отменена' ORDER BY ".$sort." ".$order;
+		$_SESSION['query']="SELECT * FROM tasktable WHERE chief ='".$_POST['select_chief']."' AND status!='Выполнена' AND status!='Отменена'";
+		echo $_SESSION['query'];
+	} else{
+	$query = "SELECT * FROM tasktable WHERE status!='Выполнена' AND status!='Отменена' ORDER BY ".$sort." ".$order;
+	$_SESSION['query']="SELECT * FROM tasktable WHERE status!='Выполнена' AND status!='Отменена'";
+	echo $_SESSION['query'];
+	}
 	$querynum=$query;
 	$quantrows=mysql_query($query);
 	$numm = mysql_num_rows($quantrows);	
 	echo 'Найдено заявок: '.$numm;
 } else
 { 
-$query = "SELECT * FROM tasktable ORDER BY number DESC LIMIT ".$offset.", ".$limit;	
-$querynum = "SELECT * FROM tasktable ORDER BY number DESC";	
-echo 'Найдено заявок: '.$numm;
+	if(isset($_SESSION['query']) AND $_GET['blocksession']=="true") {										//если флаг и сессия с запросом есть- используем запрос из сессии, нет- стандартный.
+		$query=$_SESSION['query']." ORDER BY ".$sort." ".$order;
+		echo 'Сессия поймана'.$query;
+	} else {
+		unset($_SESSION['query']);
+		$query = "SELECT * FROM tasktable ORDER BY ".$sort." ".$order." LIMIT ".$offset.", ".$limit;	
+		$querynum = "SELECT * FROM tasktable ORDER BY ".$sort." ".$order;	
+echo 'Найдено заявок: ';
+	}
+/*
+Система сортировки. Работает след. образом:
+при формировании нового sql-запроса (при выборе того или иного фильтра) в куки добавляется его усеченная часть без сортировок в конце(типа SELECT * FROM tasktable WHERE status!='Выполнена').
+При переходе на стандартный фильтр (когда выводятся все заявки) проверяется условие наличия сесии с запросом и флага blocksession в get-запросе. Если они есть- используется запрос из сесии, нет- стандартный.
+Флаги и условия сортировки берутся из ссылок в названиях столбцов.
+Короче- как эта хрень работает- забыл уже через 3 часа после написания)))) Джаваскрипт не использую принципиально, ибо бесит.
+*/
 }
 
 $result=mysql_query ($query);
